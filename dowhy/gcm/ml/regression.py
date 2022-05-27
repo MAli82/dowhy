@@ -7,9 +7,11 @@ from typing import Any
 import numpy as np
 import sklearn
 from sklearn.experimental import enable_hist_gradient_boosting  # noqa
-from sklearn.ensemble import RandomForestRegressor, HistGradientBoostingRegressor
+from sklearn.ensemble import RandomForestRegressor, HistGradientBoostingRegressor, ExtraTreesRegressor, \
+    AdaBoostRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV, LassoLarsIC, ElasticNetCV
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.svm import SVR
 
 from dowhy.gcm.fcms import InvertibleFunction, PredictionModel
@@ -92,6 +94,18 @@ def create_random_forest_regressor(**kwargs) -> SklearnRegressionModel:
 
 def create_hist_gradient_boost_regressor(**kwargs) -> SklearnRegressionModel:
     return SklearnRegressionModel(HistGradientBoostingRegressor(**kwargs))
+
+
+def create_extra_trees_regressor(**kwargs) -> SklearnRegressionModel:
+    return SklearnRegressionModel(ExtraTreesRegressor(**kwargs))
+
+
+def create_knn_regressor(**kwargs) -> SklearnRegressionModel:
+    return SklearnRegressionModel(KNeighborsRegressor(**kwargs))
+
+
+def create_ada_boost_regressor(**kwargs) -> SklearnRegressionModel:
+    return SklearnRegressionModel(AdaBoostRegressor(**kwargs))
 
 
 class InvertibleIdentityFunction(InvertibleFunction):
