@@ -4,6 +4,7 @@ future.
 """
 
 from .cms import ProbabilisticCausalModel, StructuralCausalModel, FunctionalCausalModel, InvertibleStructuralCausalModel
+from .confidence_intervals import confidence_intervals
 from .fcms import PredictionModel, ClassificationModel, AdditiveNoiseModel, ClassifierFCM, PostNonlinearModel
 from .fitting_sampling import fit, draw_samples
 from .graph import StochasticModel, ConditionalStochasticModel, FunctionalCausalModel, DirectedGraph, is_root_node
