@@ -48,8 +48,7 @@ _LIST_OF_POTENTIAL_REGRESSORS = [create_linear_regressor,
 
 class AssignmentQuality(Enum):
     GOOD = auto(),
-    BETTER = auto(),
-    BEST = auto()
+    BETTER = auto()
 
 
 def assign_causal_mechanisms(causal_model: ProbabilisticCausalModel,
@@ -79,13 +78,6 @@ def assign_causal_mechanisms(causal_model: ProbabilisticCausalModel,
             Model training speed: Fast
             Model inference speed: Fast
             Model accuracy: Good
-        - AssignmentQuality.BEST: Uses an AutoGluon model with default settings defined by the AutoGluon wrapper.
-            While the model selection itself is fast, the training of the models can be significantly slower than in
-            the other options.
-            Model selection speed: Instant
-            Model training speed: Slow
-            Model inference speed: Slow
-            Model accuracy: Best
         :param override_models: If set to True, existing model assignments are replaced with automatically selected
         ones. If set to False, the assigned models are only validated with respect to the graph structure.
 
@@ -133,17 +125,6 @@ def select_model(X: np.ndarray, Y: np.ndarray, model_selection_quality: Assignme
             return find_best_model(_LIST_OF_POTENTIAL_CLASSIFIERS, X, Y)()
         else:
             return find_best_model(_LIST_OF_POTENTIAL_REGRESSORS, X, Y)()
-    elif model_selection_quality == AssignmentQuality.BEST:
-        try:
-            from causality.ml.autogluon import AutoGluonClassificationModel, AutoGluonRegressionModel
-
-            if target_is_categorical:
-                return AutoGluonClassificationModel()
-            else:
-                return AutoGluonRegressionModel()
-        except ImportError:
-            raise RuntimeError("AutoGluon module not found! For the BEST auto assign quality, consider installing the "
-                               "AutoGluon dependency.")
 
 
 def has_linear_relationship(X: np.ndarray,
