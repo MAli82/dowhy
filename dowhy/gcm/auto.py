@@ -56,8 +56,9 @@ def assign_causal_mechanisms(causal_model: ProbabilisticCausalModel,
                              quality: AssignmentQuality,
                              override_models: bool = False) -> None:
     """ Automatically assigns appropriate causal models. If causal models are already assigned to nodes and
-    override_models is set to False, this function does only validate the assignments with respect the graph structure.
-    This is, root nodes should have StochasticModels and non-root nodes should have ConditionalStochasticModels.
+    override_models is set to False, this function only validates the assignments with respect to the graph structure.
+    Here, the validation checks whether root nodes have StochasticModels and non-root ConditionalStochasticModels
+    assigned.
 
     :param causal_model: The causal model to whose nodes to assign causal models.
     :param based_on: Jointly sampled data corresponding to the nodes of the given graph.
